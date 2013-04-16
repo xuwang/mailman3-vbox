@@ -1,0 +1,25 @@
+<VirtualHost *:80>
+    ServerName   <%= node['mailman3']['server_name'] || 'list.mailman.org' %>
+    ServerAlias  list
+    ServerAdmin  <%= node['mailman3']['webmaster'] || 'mailman.org' %>
+    
+    CustomLog /var/log/apache2/access.log combineds
+    CustomLog /var/log/apache2/access.log combined
+    
+    DocumentRoot /
+    
+    Alias /static <%= node['mailman3']['install_dir'] %>/postorius_standalone/static
+    
+    <Directory "<%= node['mailman3']['install_dir'] %>/postorius_standalone/static" >
+        Order deny,allow
+        Allow from all
+    </Directory>
+
+     WSGIScriptAlias / <%= node['mailman3']['install_dir'] %>/postorius_standalone/srv/postorius.wsgi
+
+     <Directory "<%= node['mailman3']['install_dir'] %>/postorius_standalone/srv" >
+         Order deny,allow
+         Allow from all
+     </Directory>
+      
+</VirtualHost>

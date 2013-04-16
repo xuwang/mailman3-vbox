@@ -1,0 +1,76 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# invoke cmd: vagrant up --provider=aws
+
+Vagrant.configure("2") do |config|
+  
+  
+  config.vm.box = "aws"
+  config.vm.box_url = "https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box"
+  
+  config.vm.provider :aws do |aws|
+    
+    aws.access_key_id = ENV.fetch('AWS_ID') { abort "AWS_ID key missing" }
+    aws.secret_access_key = ENV.fetch('AWS_SECRET') { abort "AWS_SECRET key missing" }
+    
+    aws.region = "us-west-1"
+    aws.instance_type = "t1.micro"
+    
+    # More comprehensive region config
+    aws.region_config "us-east-1" do |region|
+      region.ami = "ami-1ebb2077"
+      region.keypair_name = "mm3"
+      region.ssh_private_key_path = "#{ENV['HOME']}/.ssh/mm3.pem"
+      region.security_groups=["mailman"]
+    end
+
+    # More comprehensive region config
+    aws.region_config "us-west-1" do |region|
+      region.ami = "ami-b0c3eef5"
+      region.keypair_name = "mm3-west"
+      region.ssh_private_key_path = "#{ENV['HOME']}/.ssh/mm3-west.pem"
+      region.security_groups=["mm3"]
+    end
+    
+    config.ssh.username = "ubuntu"
+    aws.ssh_username = "ubuntu"
+    
+  end
+  
+  $bootstrap_chef = <<-SCRIPT
+  if [[ ! (`command -v chef-solo`) ]]
+     then	
+      curl -L https://www.opscode.com/chef/install.sh | sudo bash
+  fi
+  SCRIPT
+  
+  # Install chef on the target image, need for chef provisioning in next step
+  config.vm.provision :shell, :inline => $bootstrap_chef
+  
+  
+  # Enable and configure the chef solo provisioner
+   config.vm.provision :chef_solo do |chef|
+     chef.encrypted_data_bag_secret_key_path = "../secrets/encrypted_data_bag_secret"
+     chef.cookbooks_path = ["../chef-repo/cookbooks"]
+     chef.roles_path = "../chef-repo//roles"
+     chef.data_bags_path = "../chef-repo/data_bags"
+     chef.log_level = :info
+
+     chef.json = {
+       "mailman3" => {
+           "server_name" => "list.talltree.com",
+           "password" => "not-a-secret",
+       },
+     }
+
+     # Add users in users data bag
+     chef.add_recipe("chef-solo-search")
+     chef.add_role("base")
+     # Install and setup mailman3
+     chef.add_recipe("mailman3")
+     # Install and setup postorius
+     chef.add_recipe("mailman3::web")
+   end
+  
+end

@@ -1,0 +1,106 @@
+#! /bin/sh
+#
+# mailman       starts up the mailman3 core
+#
+# Based on skeleton originally by Miquel van Smoorenburg and Ian Murdock,
+# customisations by Tollef Fog Heen and Thijs Kinkhorst for Debian.
+#
+### BEGIN INIT INFO
+# Provides:          mailman3-core
+# Required-Start:    $syslog $local_fs $remote_fs $named $network
+# Required-Stop:     $syslog $local_fs $remote_fs $named $network
+# Should-Start:
+# Should-Stop:
+# Default-Start:     2 3 4 5
+# Default-Stop:
+# Short-Description: Mailman3 Core
+# Description:       Starts and stops the Mailman queue runners, used to
+#                    manage the various message queues within the Mailman
+#                    mailing list manager.
+### END INIT INFO
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/usr/local/bin/mailman
+PIDFILE=/var/run/mailman/mailman.pid
+
+# set env[HOME], workaround for the bug in 
+# /usr/local/lib/python2.7/dist-packages/mailman-3.0.0b3_-py2.7.egg/mailman/core/initialize.py
+# line 79 
+export HOME=<%= node['mailman3']['home'] || '/opt/mailman' %>
+
+test -x $DAEMON || exit 0
+
+set -e
+
+if ! [ -d /var/run/mailman ]; then
+      install -d -o list -g list /var/run/mailman
+fi
+
+if ! [ -d /var/lock/mailman ]; then
+      install -d -o root -g list -m 2775 /var/lock/mailman
+fi
+
+. /lib/lsb/init-functions
+
+# In rare upgrading cycles python might not be available at some point.
+# Do not break the upgrade in that case.
+if ! [ -x /usr/bin/python ]; then
+        log_warning_msg "Python interpreter not available, exiting."
+        exit 0;
+fi
+
+case "$1" in
+  start)
+    log_daemon_msg "Starting Mailman3 core" "mailman"
+    if $DAEMON start; then
+        log_end_msg 0
+    else
+        log_end_msg 1
+    fi
+    ;;
+  stop)
+    log_daemon_msg "Stopping Mailman3 core" "mailman"
+    if $DAEMON stop; then
+        rm -f $PIDFILE
+        log_end_msg 0
+    else
+        log_end_msg 1
+    fi
+    ;;
+  reload)
+    log_begin_msg "Reloading Mailman3 core configuration"
+    if $DAEMON restart; then
+        log_end_msg 0
+    else
+        log_end_msg 1
+    fi
+  ;;
+  restart|force-reload)
+    PID=`cat $PIDFILE 2>/dev/null` || true
+    log_daemon_msg "Restarting Mailman3 core" "mailman"
+    $DAEMON stop
+    if test -n "$PID" && kill -0 $PID 2>/dev/null ; then
+        log_action_begin_msg "Waiting"
+        for cnt in `seq 1 5`; do
+            sleep 1
+            kill -0 $PID 2>/dev/null || break
+        done;
+        if kill -0 $PID 2>/dev/null ; then
+            log_action_end_msg 1
+        else
+            log_action_end_msg 0
+        fi
+    fi
+    if $DAEMON start; then
+        log_end_msg 0
+    else
+        log_end_msg 1
+    fi
+    ;;
+  *)
+    echo "Usage: /etc/init.d/mailman {start|stop|restart|reload|force-reload}" >&2
+    exit 1
+    ;;
+esac
+
+exit 0

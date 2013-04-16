@@ -1,0 +1,110 @@
+# Copyright (C) 2008-2013 by the Free Software Foundation, Inc.
+#
+# This file is part of GNU Mailman.
+#
+# GNU Mailman is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free
+# Software Foundation, either version 3 of the License, or (at your option)
+# any later version.
+#
+# GNU Mailman is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# GNU Mailman.  If not, see <http://www.gnu.org/licenses/>.
+
+# This is the absolute bare minimum base configuration file.  User supplied
+# configurations are pushed onto this.
+
+[mailman]
+layout: <%= node['mailman3']['layout'] || 'dev'%>
+
+[paths.local]
+# Directories as specified in schema.cfg, putting most stuff in
+# /var/tmp/mailman
+
+[paths.dev]
+# Convenient development layout where everything is put in the current
+# directory.
+var_dir: /var/lib/mailman
+pid_file: /var/run/mailman/master.pid
+bin_dir: /usr/local/bin
+queue_dir: /var/spool/mailman
+log_dir: /var/log/mailman
+lock_dir: /var/lock/mailman
+etc_dir: /etc
+
+[paths.fhs]
+# Filesystem Hiearchy Standard 2.3
+# http://www.pathname.com/fhs/pub/fhs-2.3.html
+bin_dir: /sbin
+var_dir: /var/lib/mailman
+queue_dir: /var/spool/mailman
+log_dir: /var/log/mailman
+lock_dir: /var/lock/mailman
+etc_dir: /etc
+ext_dir: /etc/mailman.d
+pid_file: /var/run/mailman/master.pid
+
+[language.en]
+
+[runner.archive]
+class: mailman.runners.archive.ArchiveRunner
+
+[runner.bad]
+class: mailman.runners.fake.BadRunner
+# The bad runner is just a placeholder for its switchboard.
+start: no
+
+[runner.bounces]
+class: mailman.runners.bounce.BounceRunner
+
+[runner.command]
+class: mailman.runners.command.CommandRunner
+
+[runner.in]
+class: mailman.runners.incoming.IncomingRunner
+
+[runner.lmtp]
+class: mailman.runners.lmtp.LMTPRunner
+path:
+
+[runner.nntp]
+class: mailman.runners.nntp.NNTPRunner
+
+[runner.out]
+class: mailman.runners.outgoing.OutgoingRunner
+
+[runner.pipeline]
+class: mailman.runners.pipeline.PipelineRunner
+
+[runner.rest]
+class: mailman.runners.rest.RESTRunner
+path:
+
+[runner.retry]
+class: mailman.runners.retry.RetryRunner
+sleep_time: 15m
+
+[runner.shunt]
+class: mailman.runners.fake.ShuntRunner
+# The shunt runner is just a placeholder for its switchboard.
+start: no
+
+[runner.virgin]
+class: mailman.runners.virgin.VirginRunner
+
+[runner.digest]
+class: mailman.runners.digest.DigestRunner
+
+[style.default]
+
+[mta]
+incoming: <%= node['mailman3']['incoming'] || 'mailman.mta.postfix.LMTP' %>
+outgoing: <%= node['mailman3']['outgoing'] || 'mailman.mta.deliver.deliver' %> 
+lmtp_host: <%= node['mailman3']['lmtp_host'] || 'localhost' %>
+lmtp_port: <%= node['mailman3']['lmtp_port'] || '8024' %>
+smtp_host: <%= node['mailman3']['smtp_host'] || 'localhost' %>
+smtp_port: <%= node['mailman3']['smtp_port'] || '25' %>

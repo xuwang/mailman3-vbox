@@ -1,0 +1,51 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+#################################################################
+# This Vagrantfile is building a Mailman3 development virtual box
+# http://wiki.list.org/display/DEV/Mailman+3.0
+#
+# It is not intended for PRODUCTION
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "mm3"
+  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+  config.vm.network :forwarded_port, guest: 80, host: 8080
+  config.vm.network :private_network, ip: "192.168.50.100"
+  config.vm.hostname = "list.talltree.com"
+  
+  # Enable and configure the chef solo provisioner
+   config.vm.provision :chef_solo do |chef|
+     chef.encrypted_data_bag_secret_key_path = "../secrets/encrypted_data_bag_secret"
+     chef.cookbooks_path = ["../chef-repo/cookbooks"]
+     chef.roles_path = "../chef-repo//roles"
+     chef.data_bags_path = "../chef-repo/data_bags"
+     chef.log_level = :info
+
+     chef.json = {
+       "mailman3" => {
+           "server_name" => "list.talltree.com",
+           "password" => "not-a-secret",
+       },
+     }
+
+     # Add users in users data bag
+     chef.add_recipe("chef-solo-search")
+     chef.add_role("base")
+     # Install and setup mailman3
+     chef.add_recipe("mailman3")
+     # Add a test list
+     chef.add_recipe("mailman3::test_list")
+     # Install and setup postorius
+     chef.add_recipe("mailman3::web")
+   end
+  
+  # cleanup the secrets copied over by vagrant chef-solo
+  # and close the data bag except for vagrant
+  $cleanup = <<-SCRIPT
+  /bin/rm -f /tmp/encrypted_data_bag_secret
+  /bin/chown -R vagrant:vagrant /tmp/vagrant-chef-1
+  /bin/chmod -R 700 /tmp/vagrant-chef-1/chef-solo-4
+  SCRIPT
+  config.vm.provision :shell, :inline => $cleanup
+end
