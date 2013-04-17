@@ -22,8 +22,7 @@ Attributes
 * `config_dir` - mailman configuration dir, default to /etc
 * `encrypted_data_bag.name` - name of the encrypted data bag containing the default password for
 													the mailman db_admin. If set, it will overwrite `node['mailman3']['password']`
-													NOT SUPPORTED for chef-solo
-												
+													NOT SUPPORTED for chef-solo												
 * `test_list` - mailman test_list email address		
 * `test_owner` - mailman test_list owner's email address
 													
@@ -34,6 +33,8 @@ Usage
 * `recipe[mailman3]` build the mailman3 core only
 * `recipe[mailman3::web]` build the mailman3 postorius web interface
 * `recipe[mailman3::test_list]` provision mailman3 test lists
+
+test_list members can be added in files/default/test_list_members
 
 
 License and Authors

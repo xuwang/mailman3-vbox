@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: hello_app
+# Cookbook Name:: mailman3
 # Recipe:: default
 #
 # Copyright 2013, Xu Wang

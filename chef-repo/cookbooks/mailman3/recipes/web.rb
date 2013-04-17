@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: mailman3
-# Recipe:: default
+# Recipe:: web
 #
 # Copyright 2013, Xu Wang
 #
