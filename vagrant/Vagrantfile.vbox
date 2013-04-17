@@ -39,13 +39,5 @@ Vagrant.configure("2") do |config|
      # Install and setup postorius
      chef.add_recipe("mailman3::web")
    end
-  
-  # cleanup the secrets copied over by vagrant chef-solo
-  # and close the data bag except for vagrant
-  $cleanup = <<-SCRIPT
-  /bin/rm -f /tmp/encrypted_data_bag_secret
-  /bin/chown -R vagrant:vagrant /tmp/vagrant-chef-1
-  /bin/chmod -R 700 /tmp/vagrant-chef-1/chef-solo-4
-  SCRIPT
-  config.vm.provision :shell, :inline => $cleanup
+
 end
