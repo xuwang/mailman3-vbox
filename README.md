@@ -26,6 +26,7 @@ Tested with:
 
 * Ubuntu 12.04/Debian Wheezy/Mac OS X 10.8.x
 * Vagrant 1.1.5
+* Chef 11.4.0
 													
 Usage
 =====
