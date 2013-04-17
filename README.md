@@ -13,9 +13,9 @@ The cookbook mailman3 in chef-repo/cookbooks provides recipes to install Mailman
 Requirements
 ============
 
-* Ubuntu 12.04
+* Ubuntu 12.04/Debian Wheezy/Mac OS X 10.8.x
+* Vagrant 1.1.5
 													
-
 Usage
 =====
 

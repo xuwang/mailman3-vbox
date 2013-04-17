@@ -7,14 +7,18 @@ Building a AWS EC2 mailman3 development VM with Vagrant
 		set aws_secret_access_key to ENV['AWS_SECRET']
 	 1.2 create and download client keys for mailman3 EC2 instances
 	
-  2) Install vagrant
+  2) Install Vagrant 1.1.5
 
     $ gem install vagrant
 	$ vagrant plugin install vagrant-aws
+	
+  3) Setup vagrantfile
+
+	$ cd mailman3-vbox/vagrant-aws
 	$ vagrant init mm3
 	$ cp ./Vagrantfile.ec2 Vagrantfile
 	
-  3) Modify Vagrantfile with your AWS setup
+	Modify Vagrantfile with your AWS setup
 
   4) Launch & provision VM
 	
