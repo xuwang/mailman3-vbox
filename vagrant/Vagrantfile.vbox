@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
    config.vm.provision :chef_solo do |chef|
      chef.encrypted_data_bag_secret_key_path = "../secrets/encrypted_data_bag_secret"
      chef.cookbooks_path = ["../chef-repo/cookbooks"]
-     chef.roles_path = "../chef-repo//roles"
+     chef.roles_path = "../chef-repo/roles"
      chef.data_bags_path = "../chef-repo/data_bags"
      chef.log_level = :info
 
