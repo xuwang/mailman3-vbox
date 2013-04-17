@@ -110,7 +110,7 @@ template "#{node['mailman3']['install_dir']}/postorius_standalone/set_admin_pass
   owner "#{node['mailman3']['user']}"
   group "#{node['mailman3']['group']}"
   source "set_admin_passwd.py.erb"
-  mode 00755
+  mode 0700
 end
 
 bash "Set admin password" do
