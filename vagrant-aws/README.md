@@ -11,11 +11,13 @@ Building a AWS EC2 mailman3 development VM with Vagrant
 
     $ gem install vagrant
 	$ vagrant plugin install vagrant-aws
-
-  3) Launch & provision VM
-
 	$ vagrant init mm3
 	$ cp ./Vagrantfile.ec2 Vagrantfile
+	
+  3) Modify Vagrantfile with your AWS setup
+
+  4) Launch & provision VM
+	
 	$ vagrant up --provider=aws
 	
-  4) open postorius at http://<ec2.fqdn>
+  5) open postorius at http://<ec2.fqdn>
