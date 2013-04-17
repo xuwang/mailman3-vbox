@@ -19,8 +19,12 @@ Requirements
 Usage
 =====
 
+Download:
+
+	$ git clone https://github.com/xuwang/mailman3-vbox.git
+
+* To build a mailman3 virtual machine with, see README.md in vagrant
 * For chef mailman3 cookbook, see README.md in chef-repo/cookbooks/mailman3
-* For vagrant builds, see README.md in vagrant
 
 
 License and Authors
