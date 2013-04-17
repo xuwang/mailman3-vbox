@@ -14,4 +14,5 @@ Building a local mailman3 development VM with Vagrant
 	$ cp ./Vagrantfile.vbox Vagrantfile
 	$ vagrant up
 	
-  4) open postorius at http://localhost:8080
+  4) open postorius at http://localhost:8080 or login into the virtual machine:
+	$ vagrant ssh

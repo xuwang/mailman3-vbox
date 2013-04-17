@@ -20,4 +20,5 @@ Building a AWS EC2 mailman3 development VM with Vagrant
 	
 	$ vagrant up --provider=aws
 	
-  5) open postorius at http://<ec2.fqdn>
+  5) open postorius at http://<ec2.fqdn>, or login into the ec2 instance:
+	$ vagrant ssh 
