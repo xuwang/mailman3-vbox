@@ -7,6 +7,16 @@ See http://wiki.list.org/display/DEV/Mailman+3.0 for Mailman3 development issues
 
 Instructions and the Vagrantfile to build a Mailman3 development virtual machine 
 is given under the vagrant sub-directory.
+	
+Following mailman3 components will installed on the development virtual machine:
+
+* Mailman3 Core
+* init.d mailman service
+* Postfix hookup
+* Mailman3 test list
+* Mailman3 client
+* Mailman3 Postorius web interface
+* Apache2 mailman virtual host
 
 The cookbook mailman3 in chef-repo/cookbooks provides recipes to install Mailman3.
 
