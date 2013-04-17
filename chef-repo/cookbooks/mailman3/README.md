@@ -23,6 +23,9 @@ Attributes
 * `encrypted_data_bag.name` - name of the encrypted data bag containing the default password for
 													the mailman db_admin. If set, it will overwrite `node['mailman3']['password']`
 													NOT SUPPORTED for chef-solo
+												
+* `test_list` - mailman test_list email address		
+* `test_owner` - mailman test_list owner's email address
 													
 
 Usage

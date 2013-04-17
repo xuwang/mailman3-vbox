@@ -25,14 +25,14 @@ end
 bash "test" do
       user "#{node['mailman3']['user']}"
       code <<-EOH
-      mailman lists | grep "mylist"
+      mailman lists | grep #{node['mailman3']['test_list']}
       if [ $? == 0 ]; then 
-          mailman remove mylist@#{node['mailman3']['server_name']}
+          mailman remove #{node['mailman3']['test_list']}
       fi
-      mailman create -o xuwang@gmail.com -d mylist@#{node['mailman3']['server_name']}
-      mailman members -a /tmp/test_list_members mylist@#{node['mailman3']['server_name']}
-      mailman lists > /tmp/mailman_list
-      mailman members  mylist@#{node['mailman3']['server_name']} > /tmp/mailman_list_members 
+      mailman create -o #{node['mailman3']['test_owner']} -d #{node['mailman3']['test_list']}
+      mailman members -a /tmp/test_list_members #{node['mailman3']['test_list']}
+      mailman lists > /tmp/mailman_test_lists
+      mailman members  #{node['mailman3']['test_list']} > /tmp/test_list_members 
       EOH
 end
 
