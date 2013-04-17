@@ -15,6 +15,10 @@ Following mailman3 components will installed on the development virtual machine:
 -------------
 
 	Follow the instructions on http://docs-v1.vagrantup.com/v1/docs/getting-started
+	
+Note: for Debian Wheezy system, virtualbox-dkms kernel module is required for VirtualBox:
+
+	$ sudo aptitude install virtualbox-dkms
 
 2. Launch & provision VM
 ---------------
