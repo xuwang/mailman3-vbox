@@ -56,7 +56,7 @@ end
 
 # Install mailman conf file
 service "mailman" do
-  supports :restart => true, :start => true, :stop => true, :status => true
+  supports :start => true, :stop => true, :restart => true, :reload => true
   action :nothing
 end 
 
@@ -67,7 +67,6 @@ template "mailman" do
   group "root"
   mode "0755"
   notifies :enable, resources(:service => "mailman")
-  notifies :start, resources(:service => "mailman")
 end
 
 template "#{node['mailman3']['config_dir']}/mailman.cfg" do
@@ -77,7 +76,7 @@ template "#{node['mailman3']['config_dir']}/mailman.cfg" do
   variables(
     'mailman3_config' => node['mailman3']
   )
-  notifies :restart, resources(:service => "mailman")
+  notifies :reload, resources(:service => "mailman")
 end
 
 # Install Postfix hook for Mailman
@@ -91,9 +90,9 @@ postfixHook = <<EOF
 recipient_delimiter = +
 unknown_local_recipient_reject_code = 550
 owner_request_special = no
-transport_maps = hash:#{node['mailman3']['home']}/var/data/postfix_lmtp
-local_recipient_maps = hash:#{node['mailman3']['home']}/var/data/postfix_lmtp
-relay_domains = hash:/#{node['mailman3']['home']}/var/data/postfix_domains
+transport_maps = hash:/var/lib/mailman/data/postfix_lmtp
+local_recipient_maps = hash:/var/lib/mailman/data/postfix_lmtp
+relay_domains = hash:/var/lib/mailman/data/postfix_domains
 EOF
 
 
