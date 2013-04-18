@@ -21,8 +21,15 @@ Vagrant.configure("2") do |config|
   
   # smtp port forwarding, 
   config.vm.network :forwarded_port, guest: 25, host: 2525
-  # you'll need to set port forwarding on the host system to rount the smtp to the vm:
-  # sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 25 -j REDIRECT --to-port 2525
+  # you'll need to setup port forwarding on the host system for rounting smtp to the vm.
+  # For Lunix host systems, do something like:
+  #  $ sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 25 -j REDIRECT --to-port 2525
+  # For Mac OS x:
+  #  See http://support.apple.com/kb/PH9012
+  # 
+  # Another way to handle this is:
+  # config.vm.network :forwarded_port, guest: 25, host: 25
+  # and use "sudo vagrant up" to allow port 25 on the host system
   
   # set vm on a private network
   config.vm.network :private_network, ip: "192.168.50.100"
