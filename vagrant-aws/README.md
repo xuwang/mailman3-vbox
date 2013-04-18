@@ -15,7 +15,7 @@ Building a AWS EC2 mailman3 development VM with Vagrant
   3) Setup vagrantfile
 
 	$ cd mailman3-vbox/vagrant-aws
-	$ vagrant init mm3
+	$ vagrant init
 	$ cp ./Vagrantfile.ec2 Vagrantfile
 	
 	Modify Vagrantfile with your AWS setup
