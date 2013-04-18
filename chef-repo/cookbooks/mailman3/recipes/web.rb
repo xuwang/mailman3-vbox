@@ -101,7 +101,6 @@ bash "Install web UI" do
       python setup.py install
       python manage.py syncdb --noinput
       EOH
-  notifies :restart, resources(:service => "mailman")    
   notifies :restart, resources(:service => "apache2")
 end
 
@@ -120,5 +119,13 @@ bash "Set admin password" do
   python set_admin_passwd.py #{node['mailman3']['db_admin']} #{node['mailman3']['password']}
   EOH
   only_if { node['mailman3']['password'] }
+end
+
+bash "Set apache user as the owner of postorius db" do
+  user "#{node['mailman3']['user']}"
+  code <<-EOH
+  cd #{node['mailman3']['install_dir']}/postorius_standalone
+  chown #{node['apache']['user']} postorius.db
+  EOH
 end
 

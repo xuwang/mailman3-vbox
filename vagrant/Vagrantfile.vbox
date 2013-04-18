@@ -8,12 +8,24 @@
 # It is not intended for PRODUCTION
 
 Vagrant.configure("2") do |config|
+  
   config.vm.box = "mm3"
+  
+  # For 64bit host systems, use
   config.vm.box_url = "http://files.vagrantup.com/precise64.box"
   # For 32bit host systems, use
   # config.vm.box_url = "http://files.vagrantup.com/precise32.box"
+  
+  # forward web interface
   config.vm.network :forwarded_port, guest: 80, host: 8080
+  
+  # smtp port forwarding, use "sudo vagrant up" to make it work
+  config.vm.network :forwarded_port, guest: 25, host: 25
+  
+  # set vm on a private network
   config.vm.network :private_network, ip: "192.168.50.100"
+  
+  # set vm fqdn
   config.vm.hostname = "list.talltree.com"
   
   # Enable and configure the chef solo provisioner
