@@ -89,7 +89,7 @@ bash "Download mailman.client" do
     creates "#{node['mailman3']['install_dir']}/mailman.client"
 end
 
-bash "Install web UI" do
+bash "Install postorius" do
   user "#{node['mailman3']['user']}"
   group "#{node['mailman3']['group']}"
   code <<-EOH
@@ -100,6 +100,7 @@ bash "Install web UI" do
       cd #{node['mailman3']['install_dir']}/postorius_standalone
       python setup.py install
       python manage.py syncdb --noinput
+      python manage.py collectstatic  --noinput
       EOH
   notifies :restart, resources(:service => "apache2")
 end
