@@ -54,21 +54,21 @@ bash "Install mailman3" do
   EOH
 end
 
-# Install mailman conf file
-service "mailman" do
-  supports :start => true, :stop => true, :restart => true, :reload => true
-  action :nothing
-end 
-
+# Install mailman service
 template "mailman" do
   path "/etc/init.d/mailman"
   source "mailman.d.erb"
   owner "root"
   group "root"
   mode "0755"
-  notifies :enable, resources(:service => "mailman")
 end
 
+service "mailman" do
+  supports :start => true, :stop => true, :restart => true, :reload => true
+  action [ :enable, :start ]
+end 
+
+# Install mailman conf file
 template "#{node['mailman3']['config_dir']}/mailman.cfg" do
   mode 0440
   owner node['mailman3']['user']
