@@ -28,7 +28,7 @@ layout: <%= node['mailman3']['layout'] || 'dev'%>
 [paths.dev]
 # Convenient development layout where everything is put in the current
 # directory.
-var_dir: /var/lib/mailman
+var_dir: <%= node['mailman3']['var_dir'] || '/var/lib/mailman' %>
 pid_file: /var/run/mailman/master.pid
 bin_dir: /usr/local/bin
 queue_dir: /var/spool/mailman

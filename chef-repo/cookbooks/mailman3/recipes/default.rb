@@ -90,9 +90,9 @@ postfixHook = <<EOF
 recipient_delimiter = +
 unknown_local_recipient_reject_code = 550
 owner_request_special = no
-transport_maps = hash:/var/lib/mailman/data/postfix_lmtp
-local_recipient_maps = hash:/var/lib/mailman/data/postfix_lmtp
-relay_domains = hash:/var/lib/mailman/data/postfix_domains
+transport_maps = hash:#{node['mailman3']['var_dir']}/data/postfix_lmtp
+local_recipient_maps = hash:#{node['mailman3']['var_dir']}/data/postfix_lmtp
+relay_domains = hash:#{node['mailman3']['var_dir']}/data/postfix_domains
 EOF
 
 

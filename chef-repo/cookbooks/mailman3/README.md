@@ -18,6 +18,7 @@ Attributes
 * `password` - the mailman db admin's password
 * `db_name` - mailman db name, default to mailman3db
 * `install_dir` - mailman installation dir, default to /opt
+* `var_dir` - mailman var dir, default to /var/mailman/lib
 * `home` - mailman home, default to /opt/mailman
 * `config_dir` - mailman configuration dir, default to /etc
 * `encrypted_data_bag.name` - name of the encrypted data bag containing the default password for
