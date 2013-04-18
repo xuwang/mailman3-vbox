@@ -19,8 +19,10 @@ Vagrant.configure("2") do |config|
   # forward web interface
   config.vm.network :forwarded_port, guest: 80, host: 8080
   
-  # smtp port forwarding, use "sudo vagrant up" to make it work
-  config.vm.network :forwarded_port, guest: 25, host: 25
+  # smtp port forwarding, 
+  config.vm.network :forwarded_port, guest: 25, host: 2525
+  # you'll need to set port forwarding on the host system to rount the smtp to the vm:
+  # sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 25 -j REDIRECT --to-port 2525
   
   # set vm on a private network
   config.vm.network :private_network, ip: "192.168.50.100"
