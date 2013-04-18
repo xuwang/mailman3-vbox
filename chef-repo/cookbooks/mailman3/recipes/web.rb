@@ -126,6 +126,7 @@ bash "Set apache user as the owner of postorius db" do
   code <<-EOH
   cd #{node['mailman3']['install_dir']}/postorius_standalone
   chown #{node['apache']['user']} postorius.db
+  chown #{node['apache']['user']} #{node['mailman3']['install_dir']}/postorius_standalone
   EOH
 end
 
