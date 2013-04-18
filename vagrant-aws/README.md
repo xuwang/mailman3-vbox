@@ -6,6 +6,7 @@ Building a AWS EC2 mailman3 development VM with Vagrant
 		set aws_access_key_id to ENV['AWS_ID]
 		set aws_secret_access_key to ENV['AWS_SECRET']
 	 1.2 create and download client keys for mailman3 EC2 instances
+	 1.3 create a security group "mm3" for mailman2 instance, i.e. open ssh, http, smtp ports, etc.
 	
   2) Install Vagrant 1.1.5
 
@@ -24,5 +25,10 @@ Building a AWS EC2 mailman3 development VM with Vagrant
 	
 	$ vagrant up --provider=aws
 	
-  5) open postorius at http://<ec2.fqdn>, or login into the ec2 instance:
+  5) open postorius at 
+
+	http://<ec2.fqdn>
+	
+or login into the ec2 instance:
+	
 	$ vagrant ssh 
