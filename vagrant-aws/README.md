@@ -10,7 +10,7 @@ Add mm3.pem key to your local SSH key store:
 
 	$ ssh-add ~/.ssh/mm3.pem
 
-2) Install Vagrant 1.1.5
+2) Install Vagrant 1.1.2
 ----------------
 	$ gem install vagrant
 	$ vagrant plugin install vagrant-aws
