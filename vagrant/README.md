@@ -33,7 +33,23 @@ in the Vagrantfile. A list of available boxes can be found at:
 	
 	http://www.vagrantbox.es/
 	
-3. open postorius at http://localhost:8080 or login into the virtual machine:
+3. Open postorius at http://localhost:8080 or login into the virtual machine:
 ----------------
 
 	$ vagrant ssh
+	
+	
+4. Shutdown the virtual machine:
+----------------
+
+	$ vagrant halt
+	
+5. Destroy the virtual machine:
+----------------
+
+	$ vagrant box remove mm3 virtualbox
+	$ rm -rf .vagrant
+	
+For more vagrant commands, refer to  [Vagrant command-line interface](http://docs.vagrantup.com/v2/cli/index.html)
+ 
+
