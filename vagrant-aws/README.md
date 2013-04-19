@@ -4,7 +4,7 @@ Building a AWS EC2 mailman3 development VM with Vagrant
 1) Setup AWS account at http://aws.amazon.com/account
 ----------------
 * create a "mm3" keypair for mailman3 EC2 instances
-* create a security group "mm3" for mailman2 instance, i.e. open ssh, http, smtp ports, etc.
+* create a security group "mm3" for mailman3 instance, i.e. open ssh, http, smtp ports, etc.
 
 2) Install Vagrant 1.1.5
 ----------------
@@ -19,12 +19,12 @@ Building a AWS EC2 mailman3 development VM with Vagrant
 
 Edit Vagrantfile and set AWS conf vars in the file:
 	
-	* access_key_id
+	* aws.access_key_id
 	* aws.secret_access_key
 	* aws.region
 	* aws.instance_type
 	* region.ami
-	* region.keypair_nam
+	* region.keypair_name
 	* region.ssh_private_key_path
 	* region.security_groups
 
