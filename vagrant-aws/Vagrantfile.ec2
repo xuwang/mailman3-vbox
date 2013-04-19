@@ -21,16 +21,18 @@ Vagrant.configure("2") do |config|
   
   config.vm.provider :aws do |aws, override|
     
-    # Set your own AWS conf values:
+    # Set your own AWS configuration values:
     aws.access_key_id = ENV.fetch('AWS_ID') { abort "AWS_ID key missing" }
     aws.secret_access_key = ENV.fetch('AWS_SECRET') { abort "AWS_SECRET key missing" }
     aws.security_groups=["mm3"]
     aws.keypair_name = "mm3"
     override.ssh.private_key_path = "#{ENV['HOME']}/.ssh/mm3.pem"
-    aws.region = "us-west-1"
     aws.instance_type = "t1.micro"
-    # AWS AMI is region dependent, make sure pick the right ami in aws.region.
-    aws.ami = "ami-b0c3eef5"
+
+    # AWS AMI is region dependent, make sure to pick the right ami 
+    aws.region = "us-west-1"
+    AMIS = { "us-east-1" => "ami-1ebb2077", "us-west-1" => "ami-b0c3eef5" }
+    aws.ami = AMIS[aws.region]
     
     aws.ssh_username = "ubuntu"
     config.ssh.username = "ubuntu"
