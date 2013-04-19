@@ -7,9 +7,6 @@ See http://wiki.list.org/display/DEV/Mailman+3.0 for Mailman3 development issues
 
 Instructions and the Vagrantfile to build a Mailman3 development virtual machine 
 is given under the vagrant sub-directory.
-
-To build a Mailman3 virtual machine on AWS EC2, see README.md in vagranet-aws
-sub-directory.
 	
 Following mailman3 components will installed on the development virtual machine:
 
@@ -39,8 +36,9 @@ Download:
 
 	$ git clone https://github.com/xuwang/mailman3-vbox.git
 
-* To build a mailman3 virtual machine with, see README.md in vagrant
-* For chef mailman3 cookbook, see README.md in chef-repo/cookbooks/mailman3
+* To build a mailman3 virtual machine with vagrant, see vagrant/README.md.
+* To build a Mailman3 virtual machine on AWS EC2, see vagranet-aws/README.md.
+* For chef mailman3 cookbook usage, see chef-repo/cookbooks/mailman3/README.md.
 
 
 License and Authors
