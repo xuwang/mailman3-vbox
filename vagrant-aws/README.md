@@ -8,7 +8,7 @@ Check https://github.com/mitchellh/vagrant-aws for details.
 1) Setup AWS account at http://aws.amazon.com/account
 ----------------
 * create a security group "mm3" for mailman3 instance, i.e. open ssh, http, smtp ports, etc.
-* create a "mm3" keypair for mailman3 EC2 instances and download the mm3.pem key
+* create a "mm3" keypair for mailman3 EC2 instances and download the mm3.pem key in your home .ssh dir
 
 Add mm3.pem key to your local SSH key store:
 
@@ -32,10 +32,14 @@ Add mm3.pem key to your local SSH key store:
 	download http://files.vagrantup.com/packages/a7853fe7b7f08dbedbc934eb9230d33be6bf746f/Vagrant_1.2.1.msi
 	and install
 	
-### for other systems ###
-See: [Vagrant v1.2.1 download](http://downloads.vagrantup.com/tags/v1.2.1)
+### for other systems, see: [Vagrant v1.2.1 download](http://downloads.vagrantup.com/tags/v1.2.1)###
+
+3) Install vagrant-aws plugin
+------------------------------
+  
+	$ vagrant plugin install vagrant-aws
 	
-3) Setup vagrantfile
+4) Setup vagrantfile
 -----------------
 	$ cd <git-clone-dir>/mailman3-vbox/vagrant-aws
 	$ vagrant init
@@ -52,11 +56,11 @@ Edit Vagrantfile and set AWS conf vars in the file:
 	* aws.keypair_name
 	* override.ssh.private_key_path
 
-4) Launch & provision VM
+5) Launch & provision VM
 ------------------
 	$ vagrant up --provider=aws
 
-5) Open postorius at 
+6) Open postorius at 
 -----------------
 	http://ec2.fqdn
 	
@@ -68,7 +72,7 @@ or login into the ec2 instance:
 
 	$ vagrant ssh 
 	
-6) Destroy the ec2 instance
+7) Destroy the ec2 instance
 -----------------
 	
 	$ vagrant destroy
