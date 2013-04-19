@@ -1,6 +1,10 @@
 Building a AWS EC2 mailman3 development VM with Vagrant
 =======================================================
 
+Note: tested with vagrant-1.1.2 and vagrant-aws-0.1.2, 
+there might be issues if you are using other versions.
+Check https://github.com/mitchellh/vagrant-aws for details.
+
 1) Setup AWS account at http://aws.amazon.com/account
 ----------------
 * create a security group "mm3" for mailman3 instance, i.e. open ssh, http, smtp ports, etc.
@@ -14,7 +18,7 @@ Add mm3.pem key to your local SSH key store:
 ----------------
 	$ gem install vagrant
 	$ vagrant plugin install vagrant-aws
-
+	
 3) Setup vagrantfile
 -----------------
 	$ cd mailman3-vbox/vagrant-aws
