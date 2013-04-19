@@ -1,7 +1,7 @@
 Building a AWS EC2 mailman3 development VM with Vagrant
 =======================================================
 
-Note: tested with vagrant-1.1.2 and vagrant-aws-0.1.2, 
+Note: tested with vagrant-1.2.1 and plugin vagrant-aws-0.2.2, 
 there might be issues if you are using other versions.
 Check https://github.com/mitchellh/vagrant-aws for details.
 
@@ -14,14 +14,30 @@ Add mm3.pem key to your local SSH key store:
 
 	$ ssh-add ~/.ssh/mm3.pem
 
-2) Install Vagrant 1.1.2
+2) Install Vagrant 1.2.1
 ----------------
-	$ gem install vagrant
-	$ vagrant plugin install vagrant-aws
+### for debain on x86_64 ###
+
+	$ cd /tmp
+	$ wget http://files.vagrantup.com/packages/a7853fe7b7f08dbedbc934eb9230d33be6bf746f/vagrant_1.2.1_x86_64.deb
+	$ sudo dpkg -i vagrant_1.2.1_x86_64.deb 
+	
+### for mac os x ###
+
+	download http://files.vagrantup.com/packages/a7853fe7b7f08dbedbc934eb9230d33be6bf746f/Vagrant-1.2.1.dmg
+	and isntall
+	
+### for windows ###
+
+	download http://files.vagrantup.com/packages/a7853fe7b7f08dbedbc934eb9230d33be6bf746f/Vagrant_1.2.1.msi
+	and install
+	
+### for other systems ###
+See: [Vagrant v1.2.1 download](http://downloads.vagrantup.com/tags/v1.2.1)
 	
 3) Setup vagrantfile
 -----------------
-	$ cd mailman3-vbox/vagrant-aws
+	$ cd <git-clone-dir>/mailman3-vbox/vagrant-aws
 	$ vagrant init
 	$ cp ./Vagrantfile.ec2 Vagrantfile
 
@@ -31,10 +47,10 @@ Edit Vagrantfile and set AWS conf vars in the file:
 	* aws.secret_access_key
 	* aws.region
 	* aws.instance_type
-	* region.ami
-	* region.keypair_name
-	* region.ssh_private_key_path
-	* region.security_groups
+	* aws.ami
+	* aws.security_groups
+	* aws.keypair_name
+	* override.ssh.private_key_path
 
 4) Launch & provision VM
 ------------------

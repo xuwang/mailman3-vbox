@@ -4,14 +4,14 @@
 # invoke cmd: vagrant up --provider=aws
 
 # You must set the following aws conf vars:
-#   access_key_id
+#   aws.access_key_id
 #   aws.secret_access_key
 #   aws.region
 #   aws.instance_type
-#   region.ami
-#   region.keypair_nam
-#   region.ssh_private_key_path
-#   region.security_groups
+#   aws.ami
+#   aws.keypair_name
+#   awa.security_groups, the "default" security group will be used if this is not set
+#   override.ssh.private_key_path = "file path to keypair_name.pem"
 
 Vagrant.configure("2") do |config|
   
@@ -19,44 +19,20 @@ Vagrant.configure("2") do |config|
   config.vm.box = "aws"
   config.vm.box_url = "https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box"
   
-  config.vm.provider :aws do |aws|
+  config.vm.provider :aws do |aws, override|
     
-    # get your aws_access_key_id form ENV['AWS_ID]
-    # or you could hard code it here
+    # Set your own AWS conf values:
     aws.access_key_id = ENV.fetch('AWS_ID') { abort "AWS_ID key missing" }
-    
-		# get your aws_secret_access_key from ENV['AWS_SECRET']
-    # or you could hard code it here
     aws.secret_access_key = ENV.fetch('AWS_SECRET') { abort "AWS_SECRET key missing" }
-    
-    # set your aws rigin and zone
     aws.region = "us-west-1"
-    
-    # set your ec2 instance type
     aws.instance_type = "t1.micro"
+    aws.ami = "ami-b0c3eef5"
+    aws.security_groups=["mm3"]
+    aws.keypair_name = "mm3"
+    override.ssh.private_key_path = "#{ENV['HOME']}/.ssh/mm3.pem"
     
-    # More comprehensive region config for us-east-1
-    # you must set the ssh private key for the vm
-    aws.region_config "us-east-1" do |region|
-      region.ami = "ami-1ebb2077"
-      region.keypair_name = "mm3"
-      region.ssh_private_key_path = "#{ENV['HOME']}/.ssh/mm3.pem"
-      region.security_groups=["mm3"]
-    end
-
-    # More comprehensive region config for us-west-1
-    # you must set the ssh private key for the vm
-    aws.region_config "us-west-1" do |region|
-      region.ami = "ami-b0c3eef5"
-      region.keypair_name = "mm3-west"
-      region.ssh_private_key_path = "#{ENV['HOME']}/.ssh/mm3-west.pem"
-      region.security_groups=["mm3"]
-    end
-    
-    # tell vargrant to use "ubuntu" as the provisioner
-    config.ssh.username = "ubuntu"
     aws.ssh_username = "ubuntu"
-    
+    config.ssh.username = "ubuntu"
   end
   
   # the bootstrap script for installing Chef on ec2 image.
