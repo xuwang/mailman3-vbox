@@ -3,6 +3,16 @@
 
 # invoke cmd: vagrant up --provider=aws
 
+# You must set the following aws conf vars:
+#   access_key_id
+#   aws.secret_access_key
+#   aws.region
+#   aws.instance_type
+#   region.ami
+#   region.keypair_nam
+#   region.ssh_private_key_path
+#   region.security_groups
+
 Vagrant.configure("2") do |config|
   
   # Use a dummy ec2 virtual box for vagrant
@@ -26,14 +36,16 @@ Vagrant.configure("2") do |config|
     aws.instance_type = "t1.micro"
     
     # More comprehensive region config for us-east-1
+    # you must set the ssh private key for the vm
     aws.region_config "us-east-1" do |region|
       region.ami = "ami-1ebb2077"
       region.keypair_name = "mm3"
       region.ssh_private_key_path = "#{ENV['HOME']}/.ssh/mm3.pem"
-      region.security_groups=["mailman"]
+      region.security_groups=["mm3"]
     end
 
     # More comprehensive region config for us-west-1
+    # you must set the ssh private key for the vm
     aws.region_config "us-west-1" do |region|
       region.ami = "ami-b0c3eef5"
       region.keypair_name = "mm3-west"
