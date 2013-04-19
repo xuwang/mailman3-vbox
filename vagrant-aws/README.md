@@ -36,7 +36,7 @@ Edit Vagrantfile and set AWS conf vars in the file:
 ------------------
 	$ vagrant up --provider=aws
 
-5) open postorius at 
+5) Open postorius at 
 -----------------
 	http://ec2.fqdn
 	
@@ -47,3 +47,8 @@ You can find the ec2.fqdn by command:
 or login into the ec2 instance:
 
 	$ vagrant ssh 
+	
+6) Destroy the ec2 instance
+-----------------
+	
+	$ vagrant destroy
