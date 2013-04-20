@@ -16,18 +16,18 @@ Add mm3.pem key to your local SSH key store:
 
 2) Install Vagrant 1.2.1
 ----------------
-### for debain on x86_64 ###
+### For Debain on x86_64 ###
 
 	$ cd /tmp
 	$ wget http://files.vagrantup.com/packages/a7853fe7b7f08dbedbc934eb9230d33be6bf746f/vagrant_1.2.1_x86_64.deb
 	$ sudo dpkg -i vagrant_1.2.1_x86_64.deb 
 	
-### for mac os x ###
+### For Mac OS X ###
 
 	download http://files.vagrantup.com/packages/a7853fe7b7f08dbedbc934eb9230d33be6bf746f/Vagrant-1.2.1.dmg
 	and isntall
 	
-### for windows ###
+### For MS Windows ###
 
 	download http://files.vagrantup.com/packages/a7853fe7b7f08dbedbc934eb9230d33be6bf746f/Vagrant_1.2.1.msi
 	and install
