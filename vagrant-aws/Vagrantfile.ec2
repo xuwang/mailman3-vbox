@@ -11,13 +11,17 @@
 #   aws.ami
 #   aws.keypair_name
 #   awa.security_groups, the "default" security group will be used if this is not set
-#   override.ssh.private_key_path = "file path to keypair_name.pem"
+#   override.ssh.private_key_path = "file path to ec2 keypair.pem"
 
 Vagrant.configure("2") do |config|
   
   # Use a dummy ec2 virtual box for vagrant
   config.vm.box = "aws"
   config.vm.box_url = "https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box"
+  
+  # AWS AMI is region dependent, make sure to pick the right ami.
+  # These are ubuntu-precise-12.04-amd64-server-20130325.
+  AMIS = { "us-east-1" => "ami-1ebb2077", "us-west-1" => "ami-b0c3eef5" }
   
   config.vm.provider :aws do |aws, override|
     
@@ -28,11 +32,7 @@ Vagrant.configure("2") do |config|
     aws.keypair_name = "mm3"
     override.ssh.private_key_path = "#{ENV['HOME']}/.ssh/mm3.pem"
     aws.instance_type = "t1.micro"
-
-    # AWS AMI is region dependent, make sure to pick the right ami.
-    # These are ubuntu-precise-12.04-amd64-server-20130325.
     aws.region = "us-west-1"
-    AMIS = { "us-east-1" => "ami-1ebb2077", "us-west-1" => "ami-b0c3eef5" }
     aws.ami = AMIS[aws.region]
     
     aws.ssh_username = "ubuntu"
