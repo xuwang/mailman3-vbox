@@ -16,7 +16,7 @@ Add mm3.pem key to your local SSH key store:
 
 2) Install Vagrant 1.2.1
 ----------------
-### For Debain on x86_64 ###
+### For Debian on x86_64 ###
 
 	$ cd /tmp
 	$ wget http://files.vagrantup.com/packages/a7853fe7b7f08dbedbc934eb9230d33be6bf746f/vagrant_1.2.1_x86_64.deb
