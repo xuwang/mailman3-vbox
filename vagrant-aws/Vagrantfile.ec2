@@ -29,7 +29,8 @@ Vagrant.configure("2") do |config|
     override.ssh.private_key_path = "#{ENV['HOME']}/.ssh/mm3.pem"
     aws.instance_type = "t1.micro"
 
-    # AWS AMI is region dependent, make sure to pick the right ami 
+    # AWS AMI is region dependent, make sure to pick the right ami.
+    # These are ubuntu-precise-12.04-amd64-server-20130325.
     aws.region = "us-west-1"
     AMIS = { "us-east-1" => "ami-1ebb2077", "us-west-1" => "ami-b0c3eef5" }
     aws.ami = AMIS[aws.region]
