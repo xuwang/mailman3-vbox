@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe "python"
+include_recipe "python-build"
 
 # Install base packages for mailman3
 %w{
@@ -28,12 +28,6 @@ include_recipe "python"
   }.each do |pkg|
     package pkg
   end
-
-# Install mm3 required zope version   
-python_pip "zope.interface" do
-  version "4.0.5"
-  action :install
-end
 
 bash "Download mailman" do
     user "#{node['mailman3']['user']}"
@@ -50,7 +44,8 @@ bash "Install mailman3" do
   group "#{node['mailman3']['group']}"
   code <<-EOH
   cd #{node['mailman3']['home']}
-  python setup.py install
+  python3 --version
+  python3 setup.py install
   EOH
 end
 

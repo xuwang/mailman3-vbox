@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe "python"
+include_recipe "python-build"
 include_recipe "apache2"
 include_recipe "apache2::mod_wsgi"
 
@@ -50,20 +50,25 @@ apache_site "000-default" do
 end
 
 # Install django with social-auth
-%w{
-  django
-  django-social-auth
-  }.each do |pkg|
-      python_pip pkg do
-        action :install
-      end
-  end
+#%w{
+#  django
+#  django-social-auth
+#  }.each do |pkg|
+#      python_pip pkg do
+#        action :install
+#      end
+#  end
   
+# Need django 1.6 to workaround  AppRegistryNotReady: Apps aren't loaded yet
+# https://github.com/open-research/sumatra/pull/227
+# 
 bash "Download postorius" do
     user "#{node['mailman3']['user']}"
     group "#{node['mailman3']['group']}"
     code <<-EOH
       cd #{node['mailman3']['install_dir']}
+      pip install django==1.6
+      pip install django-social-auth
       bzr branch lp:postorius
     EOH
     creates "#{node['mailman3']['install_dir']}/postorius"
