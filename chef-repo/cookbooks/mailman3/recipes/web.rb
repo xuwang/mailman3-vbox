@@ -49,16 +49,6 @@ apache_site "000-default" do
   enable false
 end
 
-# Install django with social-auth
-#%w{
-#  django
-#  django-social-auth
-#  }.each do |pkg|
-#      python_pip pkg do
-#        action :install
-#      end
-#  end
-  
 # Need django 1.6 to workaround  AppRegistryNotReady: Apps aren't loaded yet
 # https://github.com/open-research/sumatra/pull/227
 # 
@@ -67,7 +57,7 @@ bash "Download postorius" do
     group "#{node['mailman3']['group']}"
     code <<-EOH
       cd #{node['mailman3']['install_dir']}
-      pip install django==1.6
+      pip install django
       pip install django-social-auth
       bzr branch lp:postorius
     EOH
@@ -106,6 +96,9 @@ bash "Install postorius" do
       python setup.py install
       python manage.py syncdb --noinput
       python manage.py collectstatic  --noinput
+      echo "# Patch /opt/postorius_standalone/srv/postorius.wsgi" >> /opt/postorius_standalone/srv/postorius.wsgi
+      echo "from django.core.wsgi import get_wsgi_application" >> /opt/postorius_standalone/srv/postorius.wsgi
+      echo "application = get_wsgi_application()" >> /opt/postorius_standalone/srv/postorius.wsgi
       EOH
   notifies :restart, resources(:service => "apache2")
 end
