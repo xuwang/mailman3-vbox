@@ -41,7 +41,7 @@ The login name is admin. The password is "not-a-secret".
 
 There is a pre-created test list on the first page. 
 
-NOTE: Many other links will generate KeyErrors. These are known issues with postorius/mailmanclient.
+NOTE: Many other links will generate KeyErrors. These are [known issues](https://bugs.launchpad.net/postorius?field.searchtext=KeyError&search=Search&field.status%3Alist=NEW&field.status%3Alist=INCOMPLETE_WITH_RESPONSE&field.status%3Alist=INCOMPLETE_WITHOUT_RESPONSE&field.status%3Alist=CONFIRMED&field.status%3Alist=TRIAGED&field.status%3Alist=INPROGRESS&field.status%3Alist=FIXCOMMITTED&field.assignee=&field.bug_reporter=&field.omit_dupes=on&field.has_patch=&field.has_no_package=) with postorius/mailmanclient.
 
 4. login into the virtual machine:
 ----------------
