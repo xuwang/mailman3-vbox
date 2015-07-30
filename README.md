@@ -36,8 +36,8 @@ Download:
 
 	$ git clone https://github.com/xuwang/mailman3-vbox.git
 
-* To build a mailman3 virtual machine with vagrant, see [vagrant/README.md](https://github.com/xuwang/mailman3-vbox/blob/master/vagrant/README.md)
-* To build a Mailman3 virtual machine on AWS EC2, see [vagranet-aws/README.md](https://github.com/xuwang/mailman3-vbox/blob/master/vagrant-aws/README.md.
+* To build a mailman3 virtual machine with vagrant, see [vagrant/README.md](https://github.com/xuwang/mailman3-vbox/blob/master/vagrant/README.md).
+* To build a Mailman3 virtual machine on AWS EC2, see [vagranet-aws/README.md](https://github.com/xuwang/mailman3-vbox/blob/master/vagrant-aws/README.md).
 * For chef mailman3 cookbook usage, see chef-repo/cookbooks/mailman3/README.md.
 
 
