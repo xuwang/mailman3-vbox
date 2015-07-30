@@ -36,6 +36,7 @@ in the Vagrantfile. A list of available boxes can be found at:
 This step can take very long time. 
 	
 3. Open postorius at http://localhost:8080 
+---------------
 
 The login name is admin. The password is "not-a-secret".
 
