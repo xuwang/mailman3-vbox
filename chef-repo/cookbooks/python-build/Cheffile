@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+site 'http://community.opscode.com/api/v1'
+
+# external
+
+cookbook 'python-build',
+  :git => 'https://github.com/shimizukawa/chef-python-build'
