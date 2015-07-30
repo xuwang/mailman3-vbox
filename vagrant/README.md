@@ -11,10 +11,10 @@ Following mailman3 components will installed on the development virtual machine:
 * Apache2 mailman virtual host
 
 
-1. Install VirutalBox and Vagrant 1.1.5
+1. Install VirutalBox and Vagrant
 -------------
 
-	Follow the instructions on http://docs-v1.vagrantup.com/v1/docs/getting-started
+Follow Vagrant [Getting Started](http://docs-v1.vagrantup.com/v1/docs/getting-started) instructions.
 	
 Note: for Debian Wheezy system, virtualbox-dkms kernel module is required for VirtualBox:
 
@@ -33,18 +33,28 @@ in the Vagrantfile. A list of available boxes can be found at:
 	
 	http://www.vagrantbox.es/
 	
-3. Open postorius at http://localhost:8080 or login into the virtual machine:
+This step can take very long time. 
+	
+3. Open postorius at http://localhost:8080 
+
+The login name is admin. The password is "not-a-secret".
+
+There is a pre-created test list on the first page. 
+
+NOTE: Many other links will generate KeyErrors. These are known issues with postorius/mailmanclient.
+
+4. login into the virtual machine:
 ----------------
 
 	$ vagrant ssh
 	
 	
-4. Shutdown the virtual machine:
+5. Shutdown the virtual machine:
 ----------------
 
 	$ vagrant halt
 	
-5. Destroy the virtual machine:
+6. Destroy the virtual machine:
 ----------------
 
 	$ vagrant box remove mm3 virtualbox
