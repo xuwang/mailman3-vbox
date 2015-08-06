@@ -11,7 +11,7 @@ Following mailman3 components will installed on the development virtual machine:
 * Apache2 mailman virtual host
 
 
-1. Install VirutalBox and Vagrant
+1. Install VirtualBox and Vagrant
 -------------
 
 Follow Vagrant [Getting Started](http://docs-v1.vagrantup.com/v1/docs/getting-started) instructions.
